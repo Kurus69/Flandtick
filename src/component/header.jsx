@@ -86,7 +86,7 @@ export default function Header() {
                     <Dropdown.Item href="/tiket" style={{ color: "#0078b5" }}>
                       Tiket{" "}
                       <Badge bg="danger" className="rounded-circle text-center">
-                        {notif?.length === 0 ? null : notif.length}
+                        {notif?.length}
                       </Badge>
                     </Dropdown.Item>
                     <Dropdown.Item
