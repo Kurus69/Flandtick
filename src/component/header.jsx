@@ -85,9 +85,9 @@ export default function Header() {
                   <Dropdown.Menu variant="light" className="border-0 shadow-lg">
                     <Dropdown.Item href="/tiket" style={{ color: "#0078b5" }}>
                       Tiket{" "}
-                      <Badge bg="danger" className="rounded-circle text-center">
+                      {/* <Badge bg="danger" className="rounded-circle text-center">
                         {notif?.length}
-                      </Badge>
+                      </Badge> */}
                     </Dropdown.Item>
                     <Dropdown.Item
                       href="/transaction"
