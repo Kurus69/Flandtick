@@ -85,9 +85,13 @@ export default function Header() {
                   <Dropdown.Menu variant="light" className="border-0 shadow-lg">
                     <Dropdown.Item href="/tiket" style={{ color: "#0078b5" }}>
                       Tiket{" "}
-                      {/* <Badge bg="danger" className="rounded-circle text-center">
-                        {notif?.length}
-                      </Badge> */}
+                      {notif?.length !== 0 ? (
+                        <Badge
+                          bg="danger"
+                          className="rounded-circle text-center">
+                          {notif?.length}
+                        </Badge>
+                      ) : null}
                     </Dropdown.Item>
                     <Dropdown.Item
                       href="/transaction"
@@ -131,12 +135,19 @@ export default function Header() {
                       Tiket
                     </Dropdown.Item>
                     <Dropdown.Item
+                      href="/adminstasiun"
+                      style={{
+                        color: "#0078b5",
+                      }}>
+                      Stasiun
+                    </Dropdown.Item>
+                    <Dropdown.Item
                       href="/admintrain"
                       style={{
                         borderBottom: "2px solid #0078b5",
                         color: "#0078b5",
                       }}>
-                      Stasiun - Train
+                      Kereta
                     </Dropdown.Item>
                     <Dropdown.Item
                       style={{ color: "#0078b5" }}

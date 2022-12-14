@@ -40,8 +40,10 @@ export default function Banner() {
   let liveDateTime = now.toLocaleDateString();
   let date = liveDateTime.split("/");
   let today = date[2] + "-" + date[0] + "-" + date[1];
-  let weektomorrow = parseInt(date[0]) + 5;
+  let weektomorrow = parseInt(date[0]) + 7;
   let maxToday = date[2] + "-" + date[0] + "-" + weektomorrow;
+
+  console.log("week =>", weektomorrow);
 
   const handleDisabled = (event) => {
     if (event.target.checked) {
@@ -95,6 +97,12 @@ export default function Banner() {
       setShowLogin(true);
     }
   };
+
+  const { data: stasiun } = useQuery("stasiunAdmin", async () => {
+    const response = await API.get("/stasiuns");
+    return response.data.data;
+  });
+
   return (
     <>
       <div
@@ -157,15 +165,16 @@ export default function Banner() {
                     <Stack gap={3}>
                       <Row className="d-flex align-items-center">
                         <Col sm={5}>
-                          <Form.Label className="fw-semibold">Asal</Form.Label>
-                          <FormControl
-                            type="text"
-                            name="asal"
-                            onChange={handleChange}
-                            value={asal}
-                            placeholder="Jakarta"
-                            required
-                          />
+                          <Form.Label className="fw-semibold">
+                            Stasiun Asal
+                          </Form.Label>
+                          <Form.Select name="asal" onChange={handleChange}>
+                            {stasiun?.map((e) => (
+                              <option value={e.kota}>
+                                {e.name} - {e.kota}
+                              </option>
+                            ))}
+                          </Form.Select>
                         </Col>
                         <Col sm={2} className="d-flex justify-content-center">
                           <Button
@@ -180,16 +189,15 @@ export default function Banner() {
                         </Col>
                         <Col sm={5}>
                           <Form.Label className="fw-semibold">
-                            Tujuan
+                            Stasiun Tujuan
                           </Form.Label>
-                          <FormControl
-                            type="text"
-                            name="tujuan"
-                            onChange={handleChange}
-                            value={tujuan}
-                            placeholder="Surabaya"
-                            required
-                          />
+                          <Form.Select name="tujuan" onChange={handleChange}>
+                            {stasiun?.map((e) => (
+                              <option value={e.kota}>
+                                {e.name} - {e.kota}
+                              </option>
+                            ))}
+                          </Form.Select>
                         </Col>
                       </Row>
                       <Row className="d-flex align-items-center">
@@ -199,7 +207,7 @@ export default function Banner() {
                           </Form.Label>
                           <FormControl
                             type="date"
-                            // min={today}
+                            min={today}
                             max={maxToday}
                             name="jadwal"
                             value={jadwal}
@@ -287,8 +295,9 @@ export default function Banner() {
           </Row>
         </Card>
         {/* content */}
-        {!!result
-          ? result?.map((element) => {
+        {!!result ? (
+          result.length > 0 ? (
+            result.map((element) => {
               let start = moment(element.waktu_berangkat);
               let end = moment(element.waktu_tiba);
               let diff = end.diff(start);
@@ -348,63 +357,79 @@ export default function Banner() {
                 </Card>
               );
             })
-          : tikets?.map((element) => {
-              let start = moment(element.waktu_berangkat);
-              let end = moment(element.waktu_tiba);
-              let diff = end.diff(start);
-              return (
-                <Card className="p-3 lh-1 mb-2 w-100">
-                  <Row>
-                    <Col sm={3} className="text-center">
-                      <Card.Title>{element.train.name}</Card.Title>
-                      <Card.Text
-                        className="text-secondary"
-                        style={{ fontSize: "10pt" }}>
-                        {element.train.kelas}
-                      </Card.Text>
-                    </Col>
-                    <Col sm={2}>
-                      <Card.Title>
-                        <Moment format="HH:mm">
-                          {element.waktu_berangkat}
-                        </Moment>
-                      </Card.Title>
-                      <Card.Text
-                        className="text-secondary lh-lg"
-                        style={{ fontSize: "10pt" }}>
-                        {element.stasiunasal.name}
-                      </Card.Text>
-                    </Col>
-                    <Col sm={1} className="d-flex align-items-center">
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        style={{ right: 0, top: 20 }}
-                      />
-                    </Col>
-                    <Col sm={2}>
-                      <Card.Title>
-                        <Moment format="HH:mm">{element.waktu_tiba}</Moment>
-                      </Card.Title>
-                      <Card.Text
-                        className="text-secondary"
-                        style={{ fontSize: "10pt" }}>
-                        {element.stasiuntujuan.name}
-                      </Card.Text>
-                    </Col>
-                    <Col sm={2}>
-                      <Card.Title>
-                        {moment.duration(diff).format("hh " + "j" + " mm ")}
-                      </Card.Title>
-                    </Col>
-                    <Col sm={2}>
-                      <Card.Title style={{ color: "#0078b5" }}>
-                        Rp. {element.harga}
-                      </Card.Title>
-                    </Col>
-                  </Row>
-                </Card>
-              );
-            })}
+          ) : (
+            <>
+              <Card className="p-4 lh-1 mb-2 w-100 text-center">
+                <Card.Subtitle
+                  style={{
+                    color: "#e67e22",
+                    fontWeight: "normal",
+                    lineHeight: 1.5,
+                  }}>
+                  Mohon maaf tiket tidak tersedia, silakan merubah rute
+                  perjalanan anda
+                  <br /> <b>Terimakasih</b>
+                </Card.Subtitle>
+              </Card>
+            </>
+          )
+        ) : (
+          tikets?.map((element) => {
+            let start = moment(element.waktu_berangkat);
+            let end = moment(element.waktu_tiba);
+            let diff = end.diff(start);
+            return (
+              <Card className="p-3 lh-1 mb-2 w-100">
+                <Row>
+                  <Col sm={3} className="text-center">
+                    <Card.Title>{element.train.name}</Card.Title>
+                    <Card.Text
+                      className="text-secondary"
+                      style={{ fontSize: "10pt" }}>
+                      {element.train.kelas}
+                    </Card.Text>
+                  </Col>
+                  <Col sm={2}>
+                    <Card.Title>
+                      <Moment format="HH:mm">{element.waktu_berangkat}</Moment>
+                    </Card.Title>
+                    <Card.Text
+                      className="text-secondary lh-lg"
+                      style={{ fontSize: "10pt" }}>
+                      {element.stasiunasal.name}
+                    </Card.Text>
+                  </Col>
+                  <Col sm={1} className="d-flex align-items-center">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      style={{ right: 0, top: 20 }}
+                    />
+                  </Col>
+                  <Col sm={2}>
+                    <Card.Title>
+                      <Moment format="HH:mm">{element.waktu_tiba}</Moment>
+                    </Card.Title>
+                    <Card.Text
+                      className="text-secondary"
+                      style={{ fontSize: "10pt" }}>
+                      {element.stasiuntujuan.name}
+                    </Card.Text>
+                  </Col>
+                  <Col sm={2}>
+                    <Card.Title>
+                      {moment.duration(diff).format("hh " + "j" + " mm ")}
+                    </Card.Title>
+                  </Col>
+                  <Col sm={2}>
+                    <Card.Title style={{ color: "#0078b5" }}>
+                      Rp. {element.harga}
+                    </Card.Title>
+                  </Col>
+                </Row>
+              </Card>
+            );
+          })
+        )}
       </Container>
       <Success show={showModal} showModal={setModal} />
       <Login

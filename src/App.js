@@ -8,8 +8,9 @@ import { useContext, useState, useEffect } from 'react';
 import { UserContext } from './context/userContext';
 import { API, setAuthToken } from './config/api';
 import Tiket from './pages/admin/tiket';
-import Train from './pages/admin/train';
 import AddTiket from './component/admin/addtiket';
+import Stasiun from './pages/admin/stasiun';
+import Train from './pages/admin/train';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       setAuthToken(localStorage.token);
     }
     if (state.isLogin === false && !isLoading) {
+      console.log("-")
     }
   }, [state]);
 
@@ -59,6 +61,7 @@ function App() {
                 <Route path='/invoice/:id' element={<Transaction />}></Route>
                 <Route path='/admintiket' element={<Tiket />}></Route>
                 <Route path='/formtiket' element={<AddTiket />}></Route>
+                <Route path='/adminstasiun' element={<Stasiun />}></Route>
                 <Route path='/admintrain' element={<Train />}></Route>
               </Routes>
             </Router>

@@ -208,11 +208,11 @@ export default function Tiket() {
                   <label className=" fw-light">
                     <label className=" fw-light">
                       <Moment format="dddd" className="fw-bold">
-                        {element.jadwal}
+                        {element.datetrans}
                       </Moment>
                       ,
                       <Moment format="DD MMMM yyyy" className="ms-1">
-                        {element.jadwal}
+                        {element.datetrans}
                       </Moment>
                     </label>
                   </label>

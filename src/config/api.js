@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const API = axios.create({
     // baseURL: "http://localhost:5000/landtick/",
-    baseURL: "https://landtick.pagekite.me/landtick"
+    baseURL: "https://server-production-391f.up.railway.app/landtick"
 });
 
 export const setAuthToken = (token) => {

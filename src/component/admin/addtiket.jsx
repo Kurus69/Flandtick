@@ -31,7 +31,7 @@ export default function AddTiket() {
   let liveDateTime = now.toLocaleDateString();
   let date = liveDateTime.split("/");
   let today = date[2] + "-" + date[0] + "-" + date[1];
-  let weektomorrow = parseInt(date[0]) + 5;
+  let weektomorrow = parseInt(date[0]) + 7;
   let maxToday = date[2] + "-" + date[0] + "-" + weektomorrow;
 
   const [form, setForm] = useState({
@@ -163,7 +163,7 @@ export default function AddTiket() {
                 <FormControl
                   onChange={handleChange}
                   name="waktuberangkat"
-                  type="date"
+                  type="datetime-local"
                   min={today}
                   max={maxToday}
                 />
@@ -173,7 +173,7 @@ export default function AddTiket() {
                 <FormControl
                   onChange={handleChange}
                   name="waktutiba"
-                  type="date"
+                  type="datetime-local"
                   min={today}
                   max={maxToday}
                 />
