@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 export default function NotTiket() {
   return (
     <>
-      <Container></Container>
+      <Container>Anda belum memiliki ticket!</Container>
     </>
   );
 }
