@@ -41,7 +41,7 @@ export default function Banner() {
   let date = liveDateTime.split("/");
   let today = date[2] + "-" + date[0] + "-" + date[1];
   let weektomorrow = parseInt(date[0]) + 7;
-  let maxToday = date[2] + "-" + date[0] + "-" + weektomorrow;
+  // let maxToday = date[2] + "-" + date[0] + "-" + weektomorrow;
 
   console.log("week =>", weektomorrow);
 
@@ -208,7 +208,6 @@ export default function Banner() {
                           <FormControl
                             type="date"
                             min={today}
-                            max={maxToday}
                             name="jadwal"
                             value={jadwal}
                             onChange={handleChange}
@@ -231,7 +230,7 @@ export default function Banner() {
                           {isShow ? (
                             <FormControl
                               type="date"
-                              min="2022-12-07"
+                              min={today}
                               name="date"
                               required
                             />
@@ -253,7 +252,7 @@ export default function Banner() {
                             name="qty"
                             value={qty}
                             onChange={handleChange}
-                            min={0}
+                            min={1}
                             placeholder="0"
                             id="qty"
                             required

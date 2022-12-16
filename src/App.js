@@ -57,7 +57,6 @@ function App() {
               <Routes>
                 <Route path='/' element={<Home />}></Route>
                 <Route path='/tiket' element={<Tikets />}></Route>
-                <Route path='/transaction' element={<Transaction />}></Route>
                 <Route path='/invoice/:id' element={<Transaction />}></Route>
                 <Route path='/admintiket' element={<Tiket />}></Route>
                 <Route path='/formtiket' element={<AddTiket />}></Route>

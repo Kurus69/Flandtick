@@ -93,14 +93,14 @@ export default function Header() {
                         </Badge>
                       ) : null}
                     </Dropdown.Item>
-                    <Dropdown.Item
+                    {/* <Dropdown.Item
                       href="/transaction"
                       style={{
                         borderBottom: "2px solid #0078b5",
                         color: "#0078b5",
                       }}>
                       Payment
-                    </Dropdown.Item>
+                    </Dropdown.Item> */}
 
                     <Dropdown.Item
                       style={{ color: "#0078b5" }}

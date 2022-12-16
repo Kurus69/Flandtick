@@ -57,9 +57,9 @@ export default function Login({ show, showLogin, showRegister }) {
       );
       setMessage(alert);
       console.log(err);
+      console.log(state);
     }
   });
-
   return (
     <>
       <Modal show={show} onHide={handleClose} size="md" centered>
@@ -68,7 +68,7 @@ export default function Login({ show, showLogin, showRegister }) {
           <label className="text-secondary">
             Silakan Login terlebih dahulu
           </label>
-          {/* {message && message} */}
+          {message && message}
           <Form
             onSubmit={(e) => handleSubmit.mutate(e)}
             className="mt-2 text-center">

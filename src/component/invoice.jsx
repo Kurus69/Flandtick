@@ -27,6 +27,8 @@ export default function Invoices() {
   });
   var randomstring = require("randomstring");
 
+  console.log("invoice =>", invoice);
+
   let navigate = useNavigate();
   const handlePay = useMutation(async (id) => {
     try {
